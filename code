@@ -1,0 +1,63 @@
+import tkinter as tk
+from tkinter import filedialog, ttk
+import cv2
+import os
+
+def convert_to_grayscale(filename):
+    image = cv2.imread(filename)
+
+    if image is None:
+        print("Error loading image:", filename)
+        return
+
+    gray_image = cv2.cvtColor(image, cv2.COLOR_BGR2GRAY)
+
+    # Get the filename without extension
+    filename_without = os.path.splitext(filename)[0]
+
+    # Save the grayscale image with a new extension
+    grayscale_filename = filename_without + "_grayscale.jpg"
+    cv2.imwrite(grayscale_filename, gray_image)
+
+    print("Grayscale image saved as:", grayscale_filename)
+
+def choose_file():
+    file_path = filedialog.askopenfilename(filetypes=[("Image Files", "*.png;*.jpg")])
+
+    if file_path:
+        filename_label.config(text=file_path)
+        convert_to_grayscale(file_path)
+
+# Create the main window
+root = tk.Tk()
+root.title("Grayscale Image Converter")
+
+# Get screen dimensions
+screen_width = root.winfo_screenwidth()
+screen_height = root.winfo_screenheight()
+
+# Calculate window position to center it
+window_width = 500
+window_height = 300
+x = (screen_width - window_width) // 2
+y = (screen_height - window_height) // 2
+
+# Set window size and position
+root.geometry(f"{window_width}x{window_height}+{x}+{y}")
+root.configure(bg="#303030")  # Dark gray background
+
+# Create widgets
+filename_label = ttk.Label(root, text="No file selected", font=("Arial", 12), foreground="white")
+choose_button = ttk.Button(root, text="Choose File", command=choose_file, style="Dark.TButton")
+
+# Create a style for the button
+style = ttk.Style()
+style.theme_use("clam")  # Choose a theme that supports dark mode
+style.configure("Dark.TButton", background="#404040", foreground="white")
+
+# Arrange widgets
+filename_label.pack(pady=10)
+choose_button.pack(pady=10)
+
+# Start the GUI
+root.mainloop()
