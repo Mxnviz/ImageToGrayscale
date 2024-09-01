@@ -1,0 +1,51 @@
+This code provides a Python script for creating a simple GUI-based Grayscale Image Converter.
+
+Functionality:
+
+   1)Users can select an image file (PNG or JPG format) using a file chooser dialog.
+   2)The selected image is converted to grayscale using OpenCV.
+   3)The grayscale image is saved with a new filename indicating it's grayscale.
+
+Code Breakdown:
+
+Imports:
+
+    tkinter: Provides core elements for creating GUIs in Python.
+    filedialog: Offers functions for displaying file chooser dialogs.
+    ttk: Enables the use of themed widgets for a more consistent and modern look.
+    cv2: Imports the OpenCV library for image processing tasks like grayscale conversion.
+    os: Used for manipulating file paths and extracting filenames without extensions.
+
+Functions:
+
+    convert_to_grayscale(filename):
+        Loads the image using OpenCV's cv2.imread.
+        Performs the conversion to grayscale with cv2.cvtColor.
+        Saves the grayscale image with a new filename appended with "_grayscale" using cv2.imwrite.
+        Prints a message indicating successful conversion and the saved filename.
+
+    choose_file():
+        Opens a file chooser dialog using filedialog.askopenfilename.
+        Updates the filename label to display the selected file path.
+        Calls convert_to_grayscale with the selected filename to initiate the conversion.
+
+GUI Implementation:
+
+    The script creates a main window using tk.Tk().
+    It sets the window title using root.title.
+    root.geometry defines the window size and position, centering it on the screen.
+    A dark gray background is set with root.configure(bg="#303030").
+
+Widgets:
+
+    filename_label: A label displaying the selected filename using ttk.Label.
+    choose_button: A button that triggers the file chooser dialog and conversion process using ttk.Button.
+        Its style is customized with a dark theme and white text using style.configure.
+
+Running the Script:
+
+Save the code as a Python file (e.g., grayscale_converter.py) and execute it from the command line:
+
+python grayscale_converter.py
+
+This will launch the GUI, allowing you to select images for conversion.
